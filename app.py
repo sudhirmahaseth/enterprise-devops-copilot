@@ -35,7 +35,7 @@ class DevOpsAnalysis(BaseModel):
 # 5. Core Processing Function
 def analyze_devops_logs(log_data):
     try:
-        # Using ultra-fast Llama-3-8b via Groq API
+        # Using ultra-fast Llama-3-8b via Groq API (100% Free)
         llm = ChatGroq(
             model="llama3-8b-8192", 
             temperature=0.1, 
@@ -61,7 +61,7 @@ def analyze_devops_logs(log_data):
         return None
 
 # 6. Streamlit User Layout
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns()
 
 with col1:
     st.markdown("### 📋 Paste CloudWatch / Server Logs")
@@ -102,11 +102,11 @@ with col2:
                     
                     # Display Remediation Steps
                     st.markdown("#### **Remediation Steps**")
-                    for step in result.get('remediation_steps', []):
+                    for step in result.get('remediation_steps',):
                         st.write(f"- {step}")
                         
                     # Display CLI Commands
                     st.markdown("#### **Suggested Execution Commands**")
-                    for cmd in result.get('suggested_commands', []):
+                    for cmd in result.get('suggested_commands',):
                         st.code(cmd, language="bash")
-                        
+        
