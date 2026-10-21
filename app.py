@@ -60,8 +60,8 @@ def analyze_devops_logs(log_data):
         st.error(f"Error communicating with Llama-3 model: {str(e)}")
         return None
 
-# 6. Streamlit User Layout
-col1, col2 = st.columns()
+# 6. Streamlit User Layout (Fixed st.columns error)
+col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### 📋 Paste CloudWatch / Server Logs")
@@ -102,11 +102,10 @@ with col2:
                     
                     # Display Remediation Steps
                     st.markdown("#### **Remediation Steps**")
-                    for step in result.get('remediation_steps',):
+                    for step in result.get('remediation_steps', []):
                         st.write(f"- {step}")
                         
                     # Display CLI Commands
                     st.markdown("#### **Suggested Execution Commands**")
-                    for cmd in result.get('suggested_commands',):
+                    for cmd in result.get('suggested_commands', []):
                         st.code(cmd, language="bash")
-        
